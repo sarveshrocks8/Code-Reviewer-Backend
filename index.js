@@ -16,7 +16,7 @@ dotenv.config();
 
 import pg from "pg";
 
-
+const frontendurl = process.env.FRONTEND_URL
 const port = process.env.PORT || 3000;
 
 const router = express.Router();
@@ -39,7 +39,7 @@ const app = express();
 
 
 app.use(cors({
-  origin: "http://localhost:5173", // frontend origin
+  origin: frontendurl, // frontend origin
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true
 }));
@@ -63,7 +63,7 @@ app.use(passport.session());
 passport.use(new GoogleStrategy({
   clientID: process.env.GOOGLE_CLIENT_ID,
   clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-  callbackURL: "http://localhost:3000/auth/google/callback"
+  callbackURL: `${frontendurl}/auth/google/callback`
   }, async (accessToken, refreshToken, profile, done) => {
   //--------------------------------------------------------------------------------------------
   const { id: googleId, displayName, emails, photos } = profile;
@@ -116,17 +116,17 @@ app.get("/auth/google",
 app.get("/auth/google/callback",
   passport.authenticate("google", {
     failureRedirect: "/login",
-    successRedirect: "http://localhost:5173/review" // your frontend
+    successRedirect: `${frontendurl}/review` // your frontend
   }),
   (req, res) => {
-    res.redirect("http://localhost:5173/review")
+    res.redirect(`${frontendurl}/review`)
   }
 );
 
 app.get("/logout", (req, res, next) => {
   req.logout(err => {
     if (err) { return next(err); }
-    res.redirect("http://localhost:5173/login"); // frontend login
+    res.redirect(`${frontendurl}/login`); // frontend login
   });
 });
 
