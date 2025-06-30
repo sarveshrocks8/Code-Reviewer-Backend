@@ -39,7 +39,7 @@ const app = express();
 
 
 app.use(cors({
-  origin: frontendurl, // frontend origin
+  origin: [frontendurl, "http://localhost:5173"], // frontend origin
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true
 }));
@@ -51,7 +51,7 @@ app.use(session({
   cookie: {
     //path:'/historypage',
     httpOnly: true,
-    secure: false, // set to true in production with HTTPS
+    secure: true, // set to true in production with HTTPS
     //   //  maxAge: 1000 * 60 * 60 * 24 // 1 day
     sameSite: "lax",
   }
@@ -63,7 +63,7 @@ app.use(passport.session());
 passport.use(new GoogleStrategy({
   clientID: process.env.GOOGLE_CLIENT_ID,
   clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-  callbackURL: `${frontendurl}/auth/google/callback`
+  callbackURL: `https://code-reviewer-backend-aqi6.onrender.com/auth/google/callback`
   }, async (accessToken, refreshToken, profile, done) => {
   //--------------------------------------------------------------------------------------------
   const { id: googleId, displayName, emails, photos } = profile;
