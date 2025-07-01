@@ -127,10 +127,15 @@ app.get("/auth/google/callback",
       id: req.user.id,
       email: req.user.email,
       name: req.user.name
+    
     };
+
+     console.log("✅ Session set after Google login:", req.session.user);
     res.redirect(`${frontendurl}/review`)
     }
 );
+
+console.log ("session check krna hai :>",req.user.email  );
 
 app.get("/logout", (req, res, next) => {
   req.logout(err => {
