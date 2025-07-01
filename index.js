@@ -123,11 +123,11 @@ app.get("/auth/google/callback",
   }),
   (req, res) => {
     // ✅ Manually set session.user here
-    // req.session.user = {
-    //   id: req.user.id,
-    //   email: req.user.email,
-    //   name: req.user.name
-    // };
+    req.session.user = {
+      id: req.user.id,
+      email: req.user.email,
+      name: req.user.name
+    };
     res.redirect(`${frontendurl}/review`)
     }
 );
