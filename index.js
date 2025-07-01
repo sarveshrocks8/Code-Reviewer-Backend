@@ -67,7 +67,7 @@ passport.use(new GoogleStrategy({
   clientID: process.env.GOOGLE_CLIENT_ID,
   clientSecret: process.env.GOOGLE_CLIENT_SECRET,
   callbackURL: `https://code-reviewer-backend-aqi6.onrender.com/auth/google/callback`
-  }, async (accessToken, refreshToken, profile, done) => {
+}, async (accessToken, refreshToken, profile, done) => {
   //--------------------------------------------------------------------------------------------
   const { id: googleId, displayName, emails, photos } = profile;
   const email = emails[0].value;
@@ -122,8 +122,14 @@ app.get("/auth/google/callback",
     successRedirect: `${frontendurl}/review` // your frontend
   }),
   (req, res) => {
+    // ✅ Manually set session.user here
+    // req.session.user = {
+    //   id: req.user.id,
+    //   email: req.user.email,
+    //   name: req.user.name
+    // };
     res.redirect(`${frontendurl}/review`)
-  }
+    }
 );
 
 app.get("/logout", (req, res, next) => {

@@ -38,12 +38,12 @@ router.post("/", async (req, res) => {
   try {
     //----------------------------------------------------------------------
 
-    //const userEmail = req.user?.email || req.user?.emails?.[0]?.value;
-    const user = req.user || req.session.user;
-    if (!user || !user.email) {
-      console.error("❌ User not authenticated properly");
-      return res.status(401).json({ error: "User not authenticated" });
-    }
+    const userEmail = req.user?.email || req.user?.emails?.[0]?.value;
+    // const user = req.user || req.session.user;
+    // if (!user || !user.email) {
+    //   console.error("❌ User not authenticated properly");
+    //   return res.status(401).json({ error: "User not authenticated" });
+    // }
 
     // const userEmail = user.email;
     // const userId = user.id;
