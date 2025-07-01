@@ -135,7 +135,7 @@ app.get("/auth/google/callback",
     }
 );
 
-console.log ("session check krna hai :>",req.user.email  );
+// console.log ("session check krna hai :>",req.user.email  );
 
 app.get("/logout", (req, res, next) => {
   req.logout(err => {
