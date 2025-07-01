@@ -45,8 +45,8 @@ router.post("/", async (req, res) => {
       return res.status(401).json({ error: "User not authenticated" });
     }
 
-    const userEmail = user.email;
-    const userId = user.id;
+    // const userEmail = user.email;
+    // const userId = user.id;
 
     console.log("useremail->", req.user.email);
     //console.log("ttt",req.user.id);
