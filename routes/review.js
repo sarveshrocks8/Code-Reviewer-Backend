@@ -23,13 +23,13 @@ console.log('GEMINI_API_KEY:', process.env.GEMINI_API_KEY);
 
 router.post("/", async (req, res) => {
 
-      const reviewerName = "Gemini AI";
+  const reviewerName = "Gemini AI";
 
   // console.log("User ID:", userId);
   // console.log("User Email:", userEmail);
 
   const { code } = req.body;
-  console.log ({code});
+  console.log({ code });
 
 
 
@@ -38,8 +38,17 @@ router.post("/", async (req, res) => {
   try {
     //----------------------------------------------------------------------
 
-    const userEmail = req.user?.email || req.user?.emails?.[0]?.value;
-    console.log("useremail->",req.user.email);
+    //const userEmail = req.user?.email || req.user?.emails?.[0]?.value;
+    const user = req.user || req.session.user;
+    if (!user || !user.email) {
+      console.error("❌ User not authenticated properly");
+      return res.status(401).json({ error: "User not authenticated" });
+    }
+
+    const userEmail = user.email;
+    const userId = user.id;
+
+    console.log("useremail->", req.user.email);
     //console.log("ttt",req.user.id);
     //---------------------------------------------------------------------------
     const response = await axios.post(
@@ -59,16 +68,16 @@ router.post("/", async (req, res) => {
     );
 
     const result = response.data.candidates[0].content.parts[0].text;
-                //========================================================================
-                    //✅ Save to DB
-                     
-                     
-                    await pool.query(
-                      "INSERT INTO reviews (user_id, code, feedback, reviewer_name) VALUES ($1, $2, $3, $4)",
-                      [req.user.id, code, result, reviewerName]
-                    );
+    //========================================================================
+    //✅ Save to DB
 
-                    //-------------------------------------------------------------------------------------------
+
+    await pool.query(
+      "INSERT INTO reviews (user_id, code, feedback, reviewer_name) VALUES ($1, $2, $3, $4)",
+      [req.user.id, code, result, reviewerName]
+    );
+
+    //-------------------------------------------------------------------------------------------
     res.json({ review: result });
   } catch (error) {
     console.error('Gemini API Error:', error.response?.data || error.message);
