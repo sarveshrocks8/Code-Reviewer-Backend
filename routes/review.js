@@ -23,6 +23,9 @@ console.log('GEMINI_API_KEY:', process.env.GEMINI_API_KEY);
 
 router.post("/", async (req, res) => {
 
+  console.log("Session at /api/review:", req.session);
+
+
   const reviewerName = "Gemini AI";
 
   // console.log("User ID:", userId);
