@@ -43,6 +43,7 @@ app.use(cors({
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true
 }));
+console.log("✅ Frontend URL (CORS):", frontendurl);
 
 app.use(session({
   secret: process.env.SESSION_SECRET,
