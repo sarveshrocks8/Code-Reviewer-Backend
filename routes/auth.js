@@ -29,7 +29,7 @@ router.post("/login", async (req, res) => {
             name: user.name,
         };
 
-        res.json({ message: "Login successful", user:req.session.user  });
+        res.json({ message: "Login successful", user  });
     } catch (err) {
         console.error(err);
         res.status(500).send("Server error");
