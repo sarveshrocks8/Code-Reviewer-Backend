@@ -5,8 +5,8 @@ const router = express.Router();
 
 router.get("/", async (req, res) => {
 
-  console.log("Session info:", req.session);
-  console.log("Logged-in user:", req.user); // 👈 Check this
+  console.log("Session info from historyjs:", req.session);
+  console.log("Logged-in user from historyjs:", req.user); // 👈 Check this
 
   if (!req.user) {
     return res.status(401).json({ error: "Unauthorized" });
