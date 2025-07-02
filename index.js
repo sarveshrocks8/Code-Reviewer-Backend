@@ -46,7 +46,7 @@ app.use(cors({
   credentials: true
 }));
 console.log("✅ Frontend URL (CORS):", frontendurl);
-
+app.set("trust proxy", 1); // 🛡️ TRUST Render's proxy (MUST)
 app.use(session({
   secret: process.env.SESSION_SECRET,
   resave: false,
