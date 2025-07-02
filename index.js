@@ -119,7 +119,7 @@ app.get("/auth/google",
 app.get("/auth/google/callback",
   passport.authenticate("google", {
     failureRedirect: "/login",
-    successRedirect: `${frontendurl}/review` // your frontend
+    // successRedirect: `${frontendurl}/review` // your frontend
   }),
   (req, res) => {
     // ✅ Manually set session.user here
