@@ -127,12 +127,23 @@ app.get("/auth/google/callback",
       id: req.user.id,
       email: req.user.email,
       name: req.user.name
-    
+
     };
 
-     console.log("✅ Session set after Google login:", req.session.user);
-    res.redirect(`${frontendurl}/review`)
-    }
+    req.session.save((err) => {
+      if (err) {
+        console.error("❌ Session save error:", err);
+        return res.redirect(`${frontendurl}/login`);
+      }
+    
+    console.log("✅ Session saved, redirecting to frontend...");
+
+    console.log("✅ Session set after Google login:", req.session.user);
+    
+
+    res.redirect(`${frontendurl}/review`);
+  });
+}
 );
 
 // console.log ("session check krna hai :>",req.user.email  );
