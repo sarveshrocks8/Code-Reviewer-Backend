@@ -41,7 +41,7 @@ const app = express();
 
 
 app.use(cors({
-  origin: [frontendurl, "http://localhost:5173"], // frontend origin
+  origin:  "https://code-reviewer-frontend-woad.vercel.app", // frontend origin
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true
 }));
